@@ -28,9 +28,18 @@ const FormComponent = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const convertToIST = (dateTimeString) => {
+        const date = new Date(dateTimeString); // Parse datetime string into Date object
+        const offset = date.getTimezoneOffset(); // Get the timezone offset in minutes
+        const ISTOffset = 330; // Offset for Indian Standard Time (IST) in minutes
+        const adjustedDate = new Date(date.getTime() + (ISTOffset + offset) * 60000); // Adjust datetime by adding offset
+        return adjustedDate.toISOString().slice(0, 16); // Format adjusted datetime as yyyy-MM-ddTHH:mm and return
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         formData.fcm = fcmToken || "";
+        formData.notificationTime = convertToIST(formData.notificationTime); // Convert to IST
         try {
             await axios.post('https://notify-backend-brown.vercel.app/notify/addtask', formData);
             fetchTasks();
