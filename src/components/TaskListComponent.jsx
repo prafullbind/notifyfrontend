@@ -7,9 +7,9 @@ const TaskListComponent = ({ tasks }) => {
 
     const handleComplete = async(id, val) => {
         try{
-           let response = await axios.put(`https://notify-backend-brown.vercel.app/notify/editTask/${id}`,{completed: !val})
+           let response = await axios.put(`https://notify-backend-brown.vercel.app/notify/editTask/${id}`,{completed: !val});
+        // let response = await axios.put(`http://localhost:2410/notify/editTask/${id}`,{completed: !val})
            let {data} = response;
-
         }
         catch(ex){
             console.log(ex);
