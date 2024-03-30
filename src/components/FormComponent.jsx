@@ -3,7 +3,12 @@ import TaskListComponent from './TaskListComponent';
 import axios from 'axios';
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken } from "firebase/messaging";
+import auth from "../components/httpServices/auth";
+import http from "../components/httpServices/httpService";
+import { useNavigate } from 'react-router-dom';
 
+
+const user = auth.getUser();
 
 // Replace with your actual Firebase configuration
 const firebaseConfig = {
@@ -18,9 +23,9 @@ const firebaseConfig = {
 
 const FormComponent = () => {
     const [formData, setFormData] = useState({ title: '', description: '', notificationTime: '' });
-    const [tasks, setTasks] = useState([]);
     const [fcmToken, setFcmToken] = useState(null);
     const [notificationPermissionGranted, setNotificationPermissionGranted] = useState(false);
+    const navigate = useNavigate();
 
 
 
@@ -40,25 +45,17 @@ const FormComponent = () => {
         e.preventDefault();
         formData.fcm = fcmToken || "";
         formData.notificationTime = convertToIST(formData.notificationTime); // Convert to IST
+        formData.createdBy = user?._id;
         try {
-            await axios.post('https://notify-backend-brown.vercel.app/notify/addtask', formData);
-            // await axios.post('http://localhost:2410/notify/addtask', formData);
-            fetchTasks();
+            // await axios.post('https://notify-backend-brown.vercel.app/notify/addtask', formData);
+            await http.post('/addtask', formData);
             setFormData({ title: '', description: '', notificationTime: '' });
         } catch (error) {
             console.error('Error:', error);
         }
     };
 
-    const fetchTasks = async () => {
-        try {
-            const response = await axios.get('https://notify-backend-brown.vercel.app/notify/getTask');
-            // const response = await axios.get('http://localhost:2410/notify/getTask');
-            setTasks(response.data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+   
 
     const getFCMToken = async (messaging) => {
         try {
@@ -90,7 +87,6 @@ const FormComponent = () => {
           };
       
           requestPermission();
-        fetchTasks();
     }, []);
 
 
@@ -111,7 +107,7 @@ const FormComponent = () => {
             <button className='border px-4 py-2 bg-blue-700 text-white rounded-md' type="submit">Add Reminder</button>
         </form>
     </div>
-    <TaskListComponent tasks={tasks} />
+    <button className='px-4 py-2 border bg-blue-500 text-white rounded-md' onClick={() => navigate(`/view/all-task/${user._id}`)}>View all task</button>
     </div>
     );
 };

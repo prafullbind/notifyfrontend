@@ -9,8 +9,8 @@ const TaskDetail = () => {
     useEffect(()=> {
   async function fetchDetail(){
     try{
-        let response = await axios.get(`https://notify-backend-brown.vercel.app/notify/getTaskDetail/${id}`);
-        // let response = await axios.get(`http://localhost:2410/notify/getTaskDetail/${id}`);
+        // let response = await axios.get(`https://notify-backend-brown.vercel.app/notify/getTaskDetail/${id}`);
+        let response = await axios.get(`http://localhost:2410/notify/getTaskDetail/${id}`);
         let {data} = response;
         setDetail(data[0]);
     }
