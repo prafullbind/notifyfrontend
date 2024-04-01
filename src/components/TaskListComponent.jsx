@@ -62,7 +62,7 @@ const TaskListComponent = () => {
                     </tr>
                 ))}
             </table>
-            : "There is no task created"}
+            : "There is no task"}
         </div>
     );
 };
