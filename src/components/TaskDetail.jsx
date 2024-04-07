@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import http from "./httpServices/httpService";
 
 const TaskDetail = () => {
   const [detail, setDetail] = useState({});
@@ -9,8 +10,8 @@ const TaskDetail = () => {
     useEffect(()=> {
   async function fetchDetail(){
     try{
-        // let response = await axios.get(`https://notify-backend-brown.vercel.app/notify/getTaskDetail/${id}`);
-        let response = await axios.get(`http://localhost:2410/notify/getTaskDetail/${id}`);
+        let response = await http.get(`/getTaskDetail/${id}`);
+        //let response = await axios.get(`http://localhost:2410/notify/getTaskDetail/${id}`);
         let {data} = response;
         setDetail(data[0]);
     }
