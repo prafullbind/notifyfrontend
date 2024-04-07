@@ -46,7 +46,6 @@ onMessage(messaging, (payload) => {
         }
     });
 }
-
 });
 
 

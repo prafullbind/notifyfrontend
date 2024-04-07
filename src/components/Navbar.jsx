@@ -35,4 +35,4 @@ const Navbar = ({children}) => {
   )
 }
 
-export default Navbar
+export default Navbar;

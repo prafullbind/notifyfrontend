@@ -4,8 +4,8 @@ import auth from "../httpServices/auth";
 const getUser = auth.getUser();
 let token = getUser?.token || '';
 
-const baseApiUrl = "http://localhost:2410/notify";
-//const baseApiUrl = "https://notify-backend-brown.vercel.app/notify"
+//const baseApiUrl = "http://localhost:2410/notify";
+const baseApiUrl = "https://notify-backend-brown.vercel.app/notify"
 
 function get(url){
     return axios.get(baseApiUrl+url, {

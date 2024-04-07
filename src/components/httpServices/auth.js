@@ -6,6 +6,7 @@ const encryptionKey = 'q8QQ0HdtRYF5SaL7H1OmWE0XJqLjCYCqPy0Ef8ATpJgkspAjMoXGJxsTw
 
 function login(obj) {
 const jsonString = JSON.stringify(obj);
+//Using in this 
 
 // Encrypt user data
 const encryptedData = CryptoJS.AES.encrypt(jsonString, encryptionKey).toString();
