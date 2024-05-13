@@ -54,7 +54,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Navbar>
     {user && user.firstName ? 
   <Routes>  
-    <Route path='/' element={<FormComponent />} />
+    <Route path='*' element={<FormComponent />} />
     <Route path='/home' element={<FormComponent />} />
     <Route path='/task-details/:id' element={<TaskDetail />} />
     <Route path='/view/all-task/:id' element={<TaskListComponent />} />

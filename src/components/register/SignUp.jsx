@@ -42,7 +42,7 @@ export default function SignUp() {
     try{
       let request = await http.post("/addUser", details);
       let {data} = request;
-      window.location = "/login"
+      window.location = "/"
     }
     catch(ex){
       console.log(ex);
